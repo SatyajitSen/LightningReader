@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "navbar.html" %}
+<section class="hero is-dark is-bold is-large">
+  <div class="hero-body" style="padding-top: 20px">
+    <div style="float: right;">
+      <h2 style="color:#E1DED0;">Monthly service for $10.00</h2>
+      {% if not user.active %}
+      <form action="/charge" method="post">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ user.key }}"
+          data-description="LightningReader Monthly Charge" data-amount="1000"
+          data-locale="auto">
+          </script>
+      </form>
+      {% endif %}
+      {% if user.active %}
+      <div style="color:#E1DED0;"><span>already done</span></div>
+      {% endif %}
+    </div>
+    <div>
+      {% if user.active %}
+      
+       <h2 style="color:#E1DED0;"> Read texts with lightning speed!</h2>
+
+
+            <!-- Start of Main Section -->
+ <div class="container">
+    <div class="section">
+       
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="input-field col s12 m10">
+          <div class="icon-block">
+            <h2 class="center", style="color:#E1DED0;"><i class="material-icons">Summarize a text...</i></h2>
+           <form method="POST" action="/analyze">
+         <textarea name="rawtext" cols="3" rows="5" class="form-control" required="true" placeholder="Enter Text Here"></textarea>
+          
+         <br/>
+         <button class="btn btn-small waves-effect waves-light light-blue lighten-1" type="reset">Clear</button>
+          <button class="btn btn-small waves-effect waves-light purple lighten-1" type="submit">Summarize</button>
+          
+        </form>
+          </div>
+        </div>
+
+      </div>
+
+        <div class="row">
+        <div class="input-field col s12 m10">
+          <div class="icon-block">
+            <h2 class="center", style="color:#E1DED0;"><i class="material-icons">... or the content of a URL</i></h2>
+           <form method="POST" action="/analyze_url">
+         <input type="text" name="raw_url" placeholder="Enter URL Here" required="true">
+         <button class="btn btn-small waves-effect waves-light light-blue lighten-1" type="reset">Clear</button>
+          <button class="btn btn-small waves-effect waves-light purple lighten-1" type="submit">Summarize</button>
+          
+        </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- End -->
+
+
+
+  <!-- Result Display-->
+  <section class="section section-solutions-about grey darken-2">
+ <div class="container white-text">
+ 
+      <!--   Icon Section   -->
+      <div class="col s12 m6 grey darken-3">
+          <div class="icon-block">
+            <h2 class="center", style="color:#E1DED0;"><i class="material-icons">Your summarized text</i></h2>
+              <div class="" role="alert">
+              <p>Reading Time: <span style="color:#0091EA;">{{ summary_reading_time }} min </span></p>
+              <p>Time saved: <span style="color:#0091EA;">{{ time_saved }} min </span></p>
+        </div>
+            <p class="light">{{ final_summary }}</p>
+          
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="icon-block">
+            <h2 class="center", style="color:#E1DED0;"><i class="material-icons">The original text</i></h2>
+             <p>Reading Time: <span style="color:#0091EA;">{{ final_reading_time }} min </span></p>
+            <p class="light">{{ctext}}</p>
+            
+          </div>
+        </div>
+
+        
+
+      </div>
+
+  
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        </div>
+
+
+
+      
+      {% endif %}
+      {% if not user.active %}
+      <div style="color:#E1DED0;"><span>Activate subscription with payment</span></div>
+      {% endif %}
+
+    </div>
+
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="../static/js/scripts.js"></script>
+{% endblock %}
