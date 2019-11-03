@@ -62,4 +62,16 @@ module instead:
 nlp = spacy.load('MODULE_NAME')
 ```
 
+### Demo screenshots
+
+This is what the app looks like after succsessful login:
+
+![](screenshot_login.png)
+
+Here we summarized the Wikipedia page on squirrels:
+
+![](screenshot_summary.png)
+
+
+
 Enjoy!
